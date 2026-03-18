@@ -1,74 +1,54 @@
-/**
- * UseCase3InventorySetup.java
- *
- * This class demonstrates Use Case 3 of the Hotel Booking Management System.
- * It introduces centralized inventory management using a HashMap to store
- * and manage room availability consistently across the system.
- *
- * @author YourName
- * @version 3.1
- */
+Book My Stay App
+This project presents the design and implementation of a Hotel Booking Management System to illustrate the practical application of Core Java and fundamental data structures in real-world scenarios. The system is developed incrementally, with each use case introducing a specific concept that addresses common software engineering challenges such as fair request handling, inventory consistency, and prevention of double-booking. By focusing on core logic and system behavior rather than user interface concerns, the project enables learners to understand not only how data structures are used, but why they are essential in scalable and maintainable software systems.
 
-import java.util.HashMap;
-import java.util.Map;
+Use Case 4: Room Search & Availability Check
+Goal: Enable guests to view available rooms and their details without modifying system state, reinforcing safe data access and clear separation of responsibilities.
 
-// Inventory class encapsulating availability logic
-class RoomInventory {
-    private Map<String, Integer> inventory;
+        Actor:
 
-    // Constructor initializes room availability
-    public RoomInventory() {
-        inventory = new HashMap<>();
-        inventory.put("Single Room", 5);
-        inventory.put("Double Room", 3);
-        inventory.put("Suite Room", 2);
-    }
+Guest – initiates a search to view available room options.
+Search Service – handles read-only access to inventory and room information.
+        Flow:
 
-    // Method to get availability for a specific room type
-    public int getAvailability(String roomType) {
-        return inventory.getOrDefault(roomType, 0);
-    }
+Guest initiates a room search request.
+The system retrieves availability data from the inventory.
+Room details and pricing are obtained from room objects.
+Unavailable room types are filtered out.
+Available room types and their details are displayed.
+System state remains unchanged.
+Key Concepts Used
+Read-Only Access - Search operations are designed to read data without altering it. This prevents unintended side effects and ensures system stability.
+Defensive Programming - The search logic performs checks to ensure only valid and available room types are displayed. This protects the system from incorrect assumptions and invalid data usage.
+Separation of Concerns - Search functionality is isolated from inventory mutation and booking logic. This ensures that searching does not interfere with allocation or availability updates.
+Inventory as State Holder - Inventory is accessed only to retrieve current availability counts. No updates are performed during search operations.
+Domain Model Usage -  Room objects provide descriptive information such as pricing and amenities. This avoids duplicating room-related data in the inventory layer.
+Validation Logic - Room types with zero availability are excluded from the search results. This ensures that guests see only actionable options.
+Key Requirements
+Retrieve room availability from the centralized inventory.
+Display only room types with availability greater than zero.
+Show room details and pricing using room domain objects.
+Ensure inventory data is not modified during search operations.
+Maintain a clear boundary between search logic and booking logic.
+Key Benefits
+Accurate availability visibility without state mutation
+Reduced risk of accidental inventory corruption
+Clear separation between read-only and write operations
+Drawbacks of Previous Use Case
+Use Case 3 introduced centralized inventory but did not differentiate between read and write access.
+Without explicit separation, inventory could be accidentally modified during non-booking operations.
+Please refer to the code snapshot below to write your code
 
-    // Method to update availability
-    public void updateAvailability(String roomType, int newCount) {
-        if (inventory.containsKey(roomType)) {
-            inventory.put(roomType, newCount);
-        } else {
-            System.out.println("Room type not found in inventory: " + roomType);
-        }
-    }
 
-    // Method to display current inventory state
-    public void displayInventory() {
-        System.out.println("\n--- Current Room Inventory ---");
-        for (Map.Entry<String, Integer> entry : inventory.entrySet()) {
-            System.out.println(entry.getKey() + " -> Available: " + entry.getValue());
-        }
-    }
-}
 
-// Application entry point
-public class UseCase3InventorySetup {
+Please refer to the code snapshot below to write your code
 
-    public static void main(String[] args) {
-        System.out.println("=======================================");
-        System.out.println(" Welcome to the Hotel Booking System ");
-        System.out.println(" Version: 3.1 ");
-        System.out.println("=======================================");
 
-        // Initialize centralized inventory
-        RoomInventory inventory = new RoomInventory();
 
-        // Display initial inventory
-        inventory.displayInventory();
+Please refer to the code snapshot below to write your code
 
-        // Simulate an update (e.g., one Single Room booked)
-        System.out.println("\nUpdating inventory after booking...");
-        inventory.updateAvailability("Single Room", inventory.getAvailability("Single Room") - 1);
 
-        // Display updated inventory
-        inventory.displayInventory();
 
-        System.out.println("\nApplication terminated successfully!");
-    }
-}
+Please first compile the program using javac UseCase4RoomSearch.java and run the Program using java UseCase4RoomSearch as shown below
+
+
+
